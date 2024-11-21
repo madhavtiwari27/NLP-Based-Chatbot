@@ -253,4 +253,16 @@ Following is a conversation with the chatbot:
 
 ![image](https://github.com/user-attachments/assets/ef675771-515d-4f72-9984-5ad7196aacb2)
 
+
+## References
+
+1. [Hussam Abdulla, Asim Mohammed Eltahir, Saleh Alwahaishi, Khalifa Saghair, Jan Platos and Vaclav Snasel, “Chatbots Development Using Natural Language Processing: A Review” Conference: 2022 26th International Conference on Circuits, Systems, Communications and Computers (CSCC) DOI:10.1109/CSCC55931.2022.00030](https://www.researchgate.net/publication/367369151_Chatbots_Development_Using_Natural_Language_Processing_A_Review)
+
+2. [A. Chaidrata et al., “Intent Matching based Customer Services Chatbot with Natural Language Understanding,” 2021 5th International Conference on Communication and Information Systems, ICCIS 2021, pp. 129–133, 2021. DOI: 10.1109/ICCIS53528.2021.9646029](https://www.researchgate.net/publication/357228928_Intent_Matching_based_Customer_Services_Chatbot_with_Natural_Language_Understanding)
+
+3. [P. Suta, X. Lan, B. Wu, P. Mongkolnam, and J. H. Chan, “An Overview of Machine Learning in Chatbots,” 2020. DOI: 10.18178/ijmerr.9.4.502-510.](https://www.ijmerr.com/show-176-1358-1.html)
+
+4. [I. K. F. Haugeland, A. Følstad, C. Taylor, and C. Alexander, “Understanding the user experience of customer service chatbots: An experimental study of chatbot interaction design,” Int J Hum Comput Stud, vol. 161, p. 102788, May 2022. DOI: 10.1016/J.IJHCS.2022.102788](https://www.sciencedirect.com/science/article/pii/S1071581922000179)
+
+5. [Sudeshna Sarkar, “Introduction to Machine Learning” SWAYAM Portal.](https://www.youtube.com/playlist?list=PLJ5C_6qdAvBGaabKHmVbtryZW9KpICiHC) 
   
