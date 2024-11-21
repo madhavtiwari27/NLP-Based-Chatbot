@@ -2,7 +2,7 @@
 
 ## Description
 
--This NLP based chatbot is implemented in Python, using NLTK for natural language processing and TensorFlow to train a neural network for intent classification. The system loads a JSON file containing predefined intents, patterns, and responses. It processes user input by tokenizing and lemmatizing the text, then converting it into a bag-of-words format, which is used to predict the intent of the input through a trained model.
+- This NLP based chatbot is implemented in Python, using NLTK for natural language processing and TensorFlow to train a neural network for intent classification. The system loads a JSON file containing predefined intents, patterns, and responses. It processes user input by tokenizing and lemmatizing the text, then converting it into a bag-of-words format, which is used to predict the intent of the input through a trained model.
 
 Upon initialization, the chatbot loads the dataset, where each intent is associated with multiple patterns. The chatbot tokenizes these patterns and lemmatizes the words, creating a vocabulary of unique words. The neural network is then trained to classify user input into one of these intents. 
 When a user interacts with the chatbot, the input is processed through the trained model, which predicts the most likely intent based on the patterns learned during training. If the confidence score exceeds a specified threshold, the chatbot retrieves and displays a random response linked to the predicted intent from the JSON file.
