@@ -43,7 +43,145 @@ This rule-based NLP chatbot is well-suited for tasks such as customer support, i
 
 
 - **Commented code used to do download Corporas:**
-  ![image](https://github.com/user-attachments/assets/edbd330a-ce68-4f2d-9285-0f90eaee65ee)
+
+```python
+# Uncomment these if required
+# nltk.download("punkt")
+# nltk.download("wordnet")
+```
 
 - **Loading and Preparing the data:**
-  ![image](https://github.com/user-attachments/assets/c8f79ca0-451a-450a-b94c-1e4f02c7b1bf)
+
+```python
+data_file = open('dataSET.json').read()
+data = json.loads(data_file)
+```
+
+
+- **Text Processing:**
+
+```python
+lm = WordNetLemmatizer()
+
+ourClasses = []
+newWords = []
+documentX = []
+documentY = []
+```
+
+- **Tokenizing and Lemmatizing the data:**
+
+```python
+for intent in data["ourIntents"]:
+    for pattern in intent["patterns"]:
+        ournewTkns = nltk.word_tokenize(pattern)
+        newWords.extend(ournewTkns)
+        documentX.append(pattern)
+        documentY.append(intent['tag'])
+    if intent["tag"] not in ourClasses:
+        ourClasses.append(intent["tag"])
+```
+
+
+- **Text Pre-processing**
+
+```python
+newWords = [lm.lemmatize(word.lower()) for word in newWords if word not in string.punctuation]
+newWords = sorted(set(newWords))
+ourClasses = sorted(set(ourClasses))
+```
+
+- **Preparing the training data:**
+
+```python
+trainingData = []
+outEmpty = [0] * len(ourClasses)
+```
+
+- **Creating Bag-of-words and output vectors:**
+
+```python
+for idx, doc in enumerate(documentX):
+    bag0words = []
+    text = lm.lemmatize(doc.lower())
+    for word in newWords:
+        bag0words.append(1) if word in text else bag0words.append(0)
+
+    outputRow = list(outEmpty)
+    outputRow[ourClasses.index(documentY[idx])] = 1
+    trainingData.append([bag0words, outputRow])
+```
+
+- **Shuffling and Splitting the training data:**
+
+```python
+random.shuffle(trainingData)
+trainingData = num.array(trainingData, dtype=object)
+
+x = num.array(list(trainingData[:, 0]))
+y = num.array(list(trainingData[:, 1]))
+```
+
+- **Building the Neural Network:**
+
+```python
+iShape = (len(x[0]),)
+oShape = len(y[0])
+
+Model = Sequential()
+Model.add(Dense(128, activation="relu", input_shape=iShape))
+Model.add(Dropout(0.5))
+Model.add(Dense(64, activation="relu"))
+Model.add(Dropout(0.3))
+Model.add(Dense(oShape, activation='softmax'))
+```
+
+- **Compiling and training the model:**
+
+```python
+md = tensorF.keras.optimizers.Adam(learning_rate=0.01)
+Model.compile(optimizer=md, loss='categorical_crossentropy', metrics=['accuracy'])
+Model.fit(x, y, epochs=200, verbose=1)
+```
+
+- **Text Processing Functions:**
+  
+  - **ourText():**
+
+  ```python
+  def ourText(text):
+    newtkns = nltk.word_tokenize(text)
+    newtkns = [lm.lemmatize(word) for word in newtkns]
+    return newtkns
+  ```
+
+  - **wordBag():**
+
+  ```python
+  def wordBag(text, vocab):
+    newtkns = ourText(text)
+    bagOwords = [0] * len(vocab)
+    for w in newtkns:
+        for idx, word in enumerate(vocab):
+            if word == w:
+                bagOwords[idx] = 1
+    return num.array(bagOwords)
+  ```
+
+  - **Pclass():**
+
+  ```python
+  def Pclass(text, vocab, labels):
+    bagOwords = wordBag(text, vocab)
+    ourResult = Model.predict(num.array([bagOwords]))[0]
+    newThresh = 0.2
+    yp = [[idx, res] for idx, res in enumerate(ourResult) if res > newThresh]
+
+    yp.sort(key=lambda x: x[1], reverse=True)
+    newList = []
+    for r in yp:
+        newList.append(labels[r[0]])
+    return newList
+  ```
+
+  
