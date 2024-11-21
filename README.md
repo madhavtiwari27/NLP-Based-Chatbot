@@ -28,7 +28,7 @@ When a user interacts with the chatbot, the input is processed through the train
 
 - **Importing Libraries:**
 
-  ```python
+ ```python
   import json
   import string
   import random
@@ -40,6 +40,7 @@ When a user interacts with the chatbot, the input is processed through the train
   from tensorflow.keras.layers import Dense, Dropout
   import tkinter as tk
   from tkinter import Scrollbar, Text
+```
 
 
 - **Commented code used to do download Corporas:**
@@ -147,7 +148,9 @@ Model.fit(x, y, epochs=200, verbose=1)
 - **Text Processing Functions:**
   
   - **ourText():**
-
+ 
+  Tokenizes and lemmatizes the input text.
+  
   ```python
   def ourText(text):
     newtkns = nltk.word_tokenize(text)
@@ -156,7 +159,9 @@ Model.fit(x, y, epochs=200, verbose=1)
   ```
 
   - **wordBag():**
-
+ 
+  Converts the input text into a bag-of-words vector based on the vocabulary.
+  
   ```python
   def wordBag(text, vocab):
     newtkns = ourText(text)
@@ -169,7 +174,9 @@ Model.fit(x, y, epochs=200, verbose=1)
   ```
 
   - **Pclass():**
-
+ 
+  Predicts the intent for the input text using the trained model.
+  
   ```python
   def Pclass(text, vocab, labels):
     bagOwords = wordBag(text, vocab)
@@ -183,5 +190,60 @@ Model.fit(x, y, epochs=200, verbose=1)
         newList.append(labels[r[0]])
     return newList
   ```
+
+- **Generating a Response:**
+
+```python
+def getRes(firstlist, fJson):
+    tag = firstlist[0]
+    listOfIntents = fJson["ourIntents"]
+    for i in listOfIntents:
+        if i["tag"] == tag:
+            ourResult = random.choice(i["responses"])
+            break
+    return ourResult
+```
+
+- **User Interface:**
+
+```python
+def send_message():
+    user_input = input_field.get()
+    if user_input.strip() == "":
+        return
+    chat_box.config(state=tk.NORMAL)
+    chat_box.insert(tk.END, f"You: {user_input}\n")
+    input_field.delete(0, tk.END)
+
+    intents = Pclass(user_input, newWords, ourClasses)
+    response = getRes(intents, data)
+    chat_box.insert(tk.END, f"Bot: {response}\n\n")
+    chat_box.config(state=tk.DISABLED)
+    chat_box.see(tk.END)
+
+
+root = tk.Tk()
+root.title("Chatbot")
+
+chat_box = Text(root, bd=1, bg="lightgray", font=("Arial", 12), wrap="word")
+chat_box.config(state=tk.DISABLED)
+chat_box.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+
+scrollbar = Scrollbar(chat_box)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+chat_box.config(yscrollcommand=scrollbar.set)
+scrollbar.config(command=chat_box.yview)
+
+input_frame = tk.Frame(root, bg="white")
+input_frame.pack(pady=5, fill=tk.X)
+
+input_field = tk.Entry(input_frame, font=("Arial", 12))
+input_field.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.X, expand=True)
+
+send_button = tk.Button(input_frame, text="Send", font=("Arial", 12), command=send_message)
+send_button.pack(side=tk.RIGHT, padx=5, pady=5)
+
+root.mainloop()
+```
 
   
