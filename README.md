@@ -29,18 +29,17 @@ This rule-based NLP chatbot is well-suited for tasks such as customer support, i
 - **Importing Libraries:**
 
   ```python
-import json
-import string
-import random
-import nltk
-import numpy as num
-from nltk.stem import WordNetLemmatizer
-import tensorflow as tensorF
-from tensorflow.keras import Sequential
-from tensorflow.keras.layers import Dense, Dropout
-import tkinter as tk
-from tkinter import Scrollbar, Text
-```
+  import json
+  import string
+  import random
+  import nltk
+  import numpy as num
+  from nltk.stem import WordNetLemmatizer
+  import tensorflow as tensorF
+  from tensorflow.keras import Sequential
+  from tensorflow.keras.layers import Dense, Dropout
+  import tkinter as tk
+  from tkinter import Scrollbar, Text
 
 
 - **Commented code used to do download Corporas:**
