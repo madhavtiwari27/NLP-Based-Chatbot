@@ -246,4 +246,11 @@ send_button.pack(side=tk.RIGHT, padx=5, pady=5)
 root.mainloop()
 ```
 
+
+## Project Interface
+
+Following is a conversation with the chatbot:
+
+![image](https://github.com/user-attachments/assets/ef675771-515d-4f72-9984-5ad7196aacb2)
+
   
